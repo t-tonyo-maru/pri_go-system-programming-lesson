@@ -3,6 +3,42 @@ package main
 // =======================================================
 // ## 3.4.2 ファイル入力
 // import (
+// 	"bufio"
+// 	"io"
+// 	"net"
+// 	"net/http"
+// 	"os"
+// )
+
+// func main() {
+// 	conn, err := net.Dial("tcp", "example.com:80")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	conn.Write([]byte("GET / HTTP/1.0\r\nHost: example.com\r\n\r\n"))
+// 	res, err := http.ReadResponse(bufio.NewReader(conn), nil)
+// 	defer res.Body.Close()
+// 	io.Copy(os.Stdout, res.Body)
+// }
+
+// =======================================================
+// import (
+// 	"io"
+// 	"net"
+// 	"os"
+// )
+// func main() {
+// 	conn, err := net.Dial("tcp", "example.com:80")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	conn.Write([]byte("GET / HTTP/1.0\r\nHost: example.com\r\n\r\n"))
+// 	io.Copy(os.Stdout, conn)
+// }
+
+// =======================================================
+// ## 3.4.2 ファイル入力
+// import (
 // 	"io"
 // 	"os"
 // )
