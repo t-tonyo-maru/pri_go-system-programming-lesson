@@ -1,5 +1,41 @@
 package main
 
+func main() {
+
+}
+
+// =======================================================
+// ## 3.5.2 PNG ファイルを分析してみる
+
+// =======================================================
+// ## 3.5.2 エンディアン変換
+// import (
+// 	"bytes"
+// 	"encoding/binary"
+// 	"fmt"
+// )
+
+// func main() {
+// 	data := []byte{0x0, 0x0, 0x27, 0x10}
+// 	var i int32
+// 	binary.Read(bytes.NewReader(data), binary.BigEndian, &i)
+// 	fmt.Printf("data: %d\n", i)
+// }
+
+// =======================================================
+// ## 3.5.1 必要な部位を切り出す io.LimitReader / io.SectionReader
+// import (
+// 	"io"
+// 	"os"
+// 	"strings"
+// )
+
+// func main() {
+// 	reader := strings.NewReader("Example of io.SectionReader\n")
+// 	sectionReader := io.NewSectionReader(reader, 14, 7)
+// 	io.Copy(os.Stdout, sectionReader)
+// }
+
 // =======================================================
 // ## 3.4.2 ファイル入力
 // import (
