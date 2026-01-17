@@ -1,6 +1,30 @@
 package main
 
 // =======================================================
+// ## 3.6.1 改行/単語で区切る
+// import (
+// 	"bufio"
+// 	"fmt"
+// 	"io"
+// 	"strings"
+// )
+
+// var source = `1行目
+// 2行目
+// 3行目`
+
+// func main() {
+// 	reader := bufio.NewReader(strings.NewReader(source))
+// 	for {
+// 		line, err := reader.ReadString('\n')
+// 		fmt.Printf("%v\n", line)
+// 		if err == io.EOF {
+// 			break
+// 		}
+// 	}
+// }
+
+// =======================================================
 // ## 3.5.4 PNG 画像に秘密のテキストを入れてみる
 // import (
 // 	"bytes"
