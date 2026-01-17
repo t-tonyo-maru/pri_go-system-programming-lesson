@@ -1,7 +1,28 @@
 package main
 
+func main() {
+
+}
+
 // =======================================================
 // ## 3.7 io.Reader / io.Writer でストリームを自由に操る
+// import (
+// 	"bytes"
+// 	"fmt"
+// 	"io"
+// )
+
+// func main() {
+// 	var buffer bytes.Buffer
+// 	reader := bytes.NewBufferString("Example of io.TeeReader\n")
+// 	teeReader := io.TeeReader(reader, &buffer)
+// 	// データを読み捨てる
+// 	_, _ = io.ReadAll(teeReader)
+
+// 	// しかし、バッファには残っている
+// 	fmt.Println(buffer.String())
+// }
+
 // =======================================================
 // import (
 // 	"bytes"
