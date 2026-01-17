@@ -1,33 +1,49 @@
 package main
 
-import (
-	"encoding/csv"
-	"fmt"
-	"io"
-	"strings"
-)
+// =======================================================
+// ## 3.7 io.Reader / io.Writer でストリームを自由に操る
+// =======================================================
+// import (
+// 	"bytes"
+// 	"io"
+// 	"os"
+// )
 
-var csvSource = `
-13101, 100, 10000001, 東京都, 千代田区
-13102, 200, 20000002, 東京都, 千代田区
-13103, 300, 30000003, 東京都, 千代田区
-`
+// func main() {
+// 	header := bytes.NewBufferString("----- HEADER -----\n")
+// 	content := bytes.NewBufferString("Example of io.MultiReader\n")
+// 	footer := bytes.NewBufferString("----- FOOTER -----\n")
 
-func main() {
-	reader := strings.NewReader(csvSource)
-	csvReader := csv.NewReader(reader)
-	for {
-		line, err := csvReader.Read()
-		if err == io.EOF {
-			break
-		}
-		fmt.Println(line[0], line[1:5])
-	}
-}
+// 	reader := io.MultiReader(header, content, footer)
+// 	io.Copy(os.Stdout, reader)
+// }
 
 // =======================================================
 // ## 3.6.3 その他の形式の決まったフォーマットの文字列の解析
+// import (
+// 	"encoding/csv"
+// 	"fmt"
+// 	"io"
+// 	"strings"
+// )
 
+// var csvSource = `
+// 13101, 100, 10000001, 東京都, 千代田区
+// 13102, 200, 20000002, 東京都, 千代田区
+// 13103, 300, 30000003, 東京都, 千代田区
+// `
+
+// func main() {
+// 	reader := strings.NewReader(csvSource)
+// 	csvReader := csv.NewReader(reader)
+// 	for {
+// 		line, err := csvReader.Read()
+// 		if err == io.EOF {
+// 			break
+// 		}
+// 		fmt.Println(line[0], line[1:5])
+// 	}
+// }
 // =======================================================
 // ## 3.6.2 データ型を指定して解析
 // import (
