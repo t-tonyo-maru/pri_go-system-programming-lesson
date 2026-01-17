@@ -1,11 +1,64 @@
 package main
 
-func main() {
+// =======================================================
+// ## 2.4.7 フォーマットしてデータを io.Writer に書き出す
+// import (
+// 	"encoding/json"
+// 	"os"
+// )
 
-}
+// func main() {
+// 	encoder := json.NewEncoder(os.Stdout)
+// 	encoder.SetIndent("", "  ")
+// 	encoder.Encode(map[string]string{
+// 		"example": "encoding/json",
+// 		"hello":   "world",
+// 	})
+// }
+
+// =======================================================
+// import (
+// 	"encoding/json"
+// 	"fmt"
+// 	"os"
+// )
+// func main() {
+// 	file, err := os.Create("text.json")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	defer file.Close()
+
+// 	encoder := json.NewEncoder(file)
+// 	encoder.SetIndent("", "  ")
+// 	err = encoder.Encode(map[string]string{
+// 		"example": "encoding/json",
+// 		"hello":   "world",
+// 	})
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	fmt.Println("Complete")
+// }
 
 // =======================================================
 // ## 2.4.6 io.Writer のデコレータ
+// import (
+// 	"compress/gzip"
+// 	"io"
+// 	"os"
+// )
+
+// func main() {
+// 	file, err := os.Create("test.txt.gz")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	writer := gzip.NewWriter(file)
+// 	writer.Header.Name = "text.txt"
+// 	io.WriteString(writer, "gzip.Writer example\n")
+// 	writer.Close()
+// }
 
 // =======================================================
 // ## 2.4.5 インターネット接続
