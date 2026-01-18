@@ -1,23 +1,63 @@
 package main
 
-import "fmt"
-
 func main() {
-	fmt.Println("start sub()")
-	// 終了を受け取るためのチャネル
-	done := make(chan bool)
-	go func() {
-		fmt.Println("sub() is finished")
-		// 終了を通知
-		done <- true
-	}()
-	// 終了を待つ
-	<-done
-	fmt.Println("all tasks are finidhed.")
+
 }
 
 // =======================================================
+// ## 4.2.3 for 文
+// import (
+// 	"fmt"
+// 	"math"
+// )
+
+// func primeNumber() chan int {
+// 	result := make(chan int)
+// 	go func() {
+// 		result <- 2
+// 		for i := 3; i < 100000; i += 2 {
+// 			l := int(math.Sqrt(float64(i)))
+// 			found := false
+// 			for j := 3; j < l+1; j += 2 {
+// 				if i%j == 0 {
+// 					found = true
+// 					break
+// 				}
+// 			}
+// 			if !found {
+// 				result <- i
+// 			}
+// 		}
+// 		close(result)
+// 	}()
+
+// 	return result
+// }
+
+// func main() {
+// 	pn := primeNumber()
+// 	// ココがポイント
+// 	for n := range pn {
+// 		fmt.Println(n)
+// 	}
+// }
+// =======================================================
 // ## 4.2.1 チャネルの使用方法
+// import "fmt"
+
+// func main() {
+// 	fmt.Println("start sub()")
+// 	// 終了を受け取るためのチャネル
+// 	done := make(chan bool)
+// 	go func() {
+// 		fmt.Println("sub() is finished")
+// 		// 終了を通知
+// 		done <- true
+// 	}()
+// 	// 終了を待つ
+// 	<-done
+// 	fmt.Println("all tasks are finidhed.")
+// }
 
 // =======================================================
 // ## 4.2 チャネル
