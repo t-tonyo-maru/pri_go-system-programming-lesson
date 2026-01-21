@@ -1,5 +1,11 @@
 package main
 
+import "fmt"
+
+func main() {
+	fmt.Println("hoge")
+}
+
 // =======================================================
 // ## 6.6.2 Keep-Alive 対応の HTTP クライアント
 // import (
