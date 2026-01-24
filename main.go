@@ -2,6 +2,97 @@ package main
 
 // =======================================================
 // ## 6.9.1 パイプライニングのサーバー実装
+// import (
+// 	"bufio"
+// 	"fmt"
+// 	"io"
+// 	"net"
+// 	"net/http"
+// 	"net/http/httputil"
+// 	"strings"
+// 	"time"
+// )
+
+// func writeToConn(sessionResponses chan chan *http.Response, conn net.Conn) {
+// 	defer conn.Close()
+// 	// 順番に取り出す
+// 	for sessionResponse := range sessionResponses {
+// 		// 選択された仕事が終わるまで待つ
+// 		response := <-sessionResponse
+// 		response.Write(conn)
+// 		close(sessionResponse)
+// 	}
+// }
+
+// // セッション内のリクエストを取得する
+// func handleRequest(request *http.Request, resultReceiver chan *http.Response) {
+// 	dump, err := httputil.DumpRequest(request, true)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	fmt.Println(string(dump))
+
+// 	content := "Hello World\n"
+// 	// レスポンスを書き込む
+// 	// セッションを維持するために Keep-Alive でないといけない
+// 	response := &http.Response{
+// 		StatusCode:    200,
+// 		ProtoMajor:    1,
+// 		ProtoMinor:    1,
+// 		ContentLength: int64(len(content)),
+// 		Body:          io.NopCloser(strings.NewReader(content)),
+// 	}
+// 	// 処理が終わったらチャネルに書き込み、
+// 	// ブロックされていた writeToConn の処理を再始動する
+// 	resultReceiver <- response
+// }
+
+// // セッション1つを処理
+// func processSession(conn net.Conn) {
+// 	fmt.Printf("Accept %v\n", conn.RemoteAddr())
+// 	// セッション内のリクエストを順に処理するためのチャネル
+// 	sessionRespones := make(chan chan *http.Response, 50)
+// 	defer close(sessionRespones)
+
+// 	// レスポンスを直列化してソケットに書き出す専用の goroutine
+// 	go writeToConn(sessionRespones, conn)
+// 	reader := bufio.NewReader(conn)
+// 	for {
+// 		// レスポンスを受け取ってセッションのキューに入れる
+// 		conn.SetReadDeadline(time.Now().Add(5 * time.Second))
+// 		// リクエストを読み込む
+// 		request, err := http.ReadRequest(reader)
+// 		if err != nil {
+// 			neterr, ok := err.(net.Error)
+// 			if ok && neterr.Timeout() {
+// 				fmt.Println("Timeout")
+// 				break
+// 			} else if err == io.EOF {
+// 				break
+// 			}
+// 			panic(err)
+// 		}
+// 		sessionRespone := make(chan *http.Response)
+// 		sessionRespones <- sessionRespone
+// 		// 非同期でレスポンスを実行
+// 		go handleRequest(request, sessionRespone)
+// 	}
+// }
+
+// func main() {
+// 	listener, err := net.Listen("tcp", "localhost:8888")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	fmt.Println("Server is running at localhost:8888")
+// 	for {
+// 		conn, err := listener.Accept()
+// 		if err != nil {
+// 			panic(err)
+// 		}
+// 		go processSession(conn)
+// 	}
+// }
 
 // =======================================================
 // ## 6.8.2 チャンク形式のクライアントの実装
