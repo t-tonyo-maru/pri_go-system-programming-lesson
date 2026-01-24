@@ -1,116 +1,60 @@
 package main
 
-// =======================================================
-// ## 7.3.2 クライアント側の実装例
-// import (
-// 	"fmt"
-// 	"net"
-// )
+import (
+	"bufio"
+	"fmt"
+	"io"
+	"net"
+	"net/http"
+	"net/http/httputil"
+	"os"
+	"path/filepath"
+	"strings"
+)
 
-// func main() {
-// 	fmt.Println("Listen tick server at 224.0.0.1:9999")
-// 	address, err := net.ResolveUDPAddr("udp", "224.0.0.1:9999")
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	listener, err := net.ListenMulticastUDP("udp", nil, address)
-// 	defer listener.Close()
+func main() {
+	path := filepath.Join(os.TempDir(), "unixdomainsocket-sample")
+	os.Remove(path)
 
-// 	buffer := make([]byte, 1500)
+	listener, err := net.Listen("unix", path)
+	if err != nil {
+		panic(err)
+	}
+	defer listener.Close()
 
-// 	for {
-// 		length, remoteAddress, err := listener.ReadFromUDP(buffer)
-// 		if err != nil {
-// 			panic(err)
-// 		}
-// 		fmt.Printf("Server %v\n", remoteAddress)
-// 		fmt.Printf("Now    %s\n", string(buffer[:length]))
-// 	}
-// }
+	fmt.Println("Server is running at " + path)
 
-// =======================================================
-// ## 7.3.1 サーバー側の実装例
-// import (
-// 	"fmt"
-// 	"net"
-// 	"time"
-// )
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			panic(err)
+		}
+		go func() {
+			fmt.Printf("Accept %v\n", conn.RemoteAddr())
+			// リクエストを読み込む
+			request, err := http.ReadRequest(bufio.NewReader(conn))
+			if err != nil {
+				panic(err)
+			}
 
-// const interval = 10 * time.Second
+			dump, err := httputil.DumpRequest(request, true)
+			if err != nil {
+				panic(err)
+			}
+			fmt.Println(string(dump))
 
-// func main() {
-// 	fmt.Println("Start tick server at 224.0.0.1:9999")
-// 	conn, err := net.Dial("udp", "224.0.0.1:9999")
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	defer conn.Close()
-
-// 	start := time.Now()
-// 	wait := start.Truncate(interval).Add(interval).Sub(start)
-// 	time.Sleep(wait)
-// 	ticker := time.Tick(interval)
-// 	for now := range ticker {
-// 		conn.Write([]byte(now.String()))
-// 		fmt.Println("Tick: ", now.String())
-// 	}
-// }
-
-// =======================================================
-// ## 7.2.2 クライアント側の実装例
-// import (
-// 	"fmt"
-// 	"net"
-// )
-
-// func main() {
-// 	conn, err := net.Dial("udp4", "localhost:8888")
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	defer conn.Close()
-// 	fmt.Println("Sending to server")
-
-// 	_, err = conn.Write([]byte("Hello from Client"))
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	fmt.Println("Receiving from server")
-// 	buffer := make([]byte, 1500)
-// 	length, err := conn.Read(buffer)
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	fmt.Printf("Received: %s\n", string(buffer[:length]))
-// }
+			// レスポンスを書き込む
+			response := http.Response{
+				StatusCode: 200,
+				ProtoMajor: 1,
+				ProtoMinor: 0,
+				Body:       io.NopCloser(strings.NewReader("Hello World\n")),
+			}
+			response.Write(conn)
+			conn.Close()
+		}()
+	}
+}
 
 // =======================================================
-// ## 7.2.1 サーバー側の実装例
-// import (
-// 	"fmt"
-// 	"net"
-// )
-
-// func main() {
-// 	fmt.Println("Server is running at localhost:8888")
-// 	conn, err := net.ListenPacket("udp", "localhost:8888")
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	defer conn.Close()
-
-// 	buffer := make([]byte, 1500)
-// 	for {
-// 		length, remoteAddress, err := conn.ReadFrom(buffer)
-// 		if err != nil {
-// 			panic(err)
-// 		}
-// 		fmt.Printf("Reveived from %v: %v\n", remoteAddress, string(buffer[:length]))
-
-// 		_, err = conn.WriteTo([]byte("Hello from Server"), remoteAddress)
-
-// 		if err != nil {
-// 			panic(err)
-// 		}
-// 	}
-// }
+// ## 8.2.2 Unix ドメインソケット版の HTTP サーバーを作る
