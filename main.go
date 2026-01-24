@@ -1,5 +1,87 @@
 package main
 
+import (
+	"bufio"
+	"fmt"
+	"io"
+	"net"
+	"net/http"
+	"net/http/httputil"
+	"strings"
+)
+
+var contents = []string{
+	"これは、わたしが小さいときに、村の茂兵（もへい）というおじいさんからきいたお話です。",
+	"むかしは、わたしたちの村のちかくの、中山というところに小さなお城（しろ）があって、中山さまというおとのさまがおられたそうです。",
+	"その中山から、すこしはなれた山の中に、「ごんぎつね」というきつねがいました。ごんは、ひとりぼっちの小ぎつねで、しだのいっぱいしげった森の中に穴（あな）をほって住んでいました。そして、夜でも昼でも、あたりの村へ出ていって、いたずらばかりしました。畑へ入っていもをほりちらしたり、菜種（なたね）がらの、ほしてあるのへ火をつけたり、百姓家（ひゃくしょうや）のうら手につるしてあるとんがらしをむしり取っていったり、いろんなことをしました。",
+	"ある秋のことでした。二、三日雨がふりつづいたそのあいだ、ごんは、ほっとして穴（あな）からはい出しました。空はからっと晴れていて、もずの声がキンキンひびいていました。",
+	"ごんは、村の小川のつつみまで出てきました。あたりのすすきの穂（ほ）には、まだ雨のしずくが光っていました。川はいつもは水が少ないのですが、三日もの雨で、水がどっとましていました。ただのときは水につかることのない、川べりのすすきやはぎのかぶが、黄色くにごった水に横だおしになって、もまれています。ごんは川下の方へと、ぬかるみ道を歩いていきました。",
+	"ふと見ると、川の中に人がいて、何かやっています。ごんは、見つからないように、そうっと草の深いところへ歩きよって、そこからじっとのぞいてみました。",
+}
+
+// クライアントは gzip を受け入れ可能化？
+func isGZipAcceptable(request *http.Request) bool {
+	return strings.Index(
+		strings.Join(request.Header["Accept-Encoding"], ","),
+		"gzip",
+	) != -1
+}
+
+// 1 セッションの処理をする
+func processSession(conn net.Conn) {
+	fmt.Printf("Accpet %v\n", conn.RemoteAddr())
+	defer conn.Close()
+
+	for {
+		// リクエストを読み込む
+		request, err := http.ReadRequest(bufio.NewReader(conn))
+		if err != nil {
+			if err == io.EOF {
+				break
+			}
+			panic(err)
+		}
+
+		dump, err := httputil.DumpRequest(request, true)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println(string(dump))
+
+		// レスポンスを書き込む
+		fmt.Fprintf(conn, strings.Join([]string{
+			"HTTP/1.1 200 OK",
+			"Content-Type:  text/plain; charset=utf-8",
+			"Transfer-Encoding: chunked",
+			"",
+			"",
+		}, "\r\n"))
+		for _, content := range contents {
+			bytes := []byte(content)
+			fmt.Fprintf(conn, "%x\r\n%s\r\n", len(bytes), content)
+		}
+		fmt.Fprintf(conn, "0\r\n\r\n")
+	}
+}
+
+func main() {
+	listener, err := net.Listen("tcp", "localhost:8888")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("Server is running at localhost:8888")
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			panic(err)
+		}
+		go processSession(conn)
+	}
+}
+
+// =======================================================
+// ## 6.8.1 チャンク形式のサーバーの実装
+
 // =======================================================
 // ## 6.7.2 gzip 圧縮に対応したサーバー
 // import (
