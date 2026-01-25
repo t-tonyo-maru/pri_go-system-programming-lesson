@@ -7,38 +7,44 @@ func main() {
 // =======================================================
 // ## 8.2.4 データグラム方の Unix ドメインソケット
 // import (
-// 	"fmt"
+// 	"log"
 // 	"net"
 // 	"os"
 // 	"path/filepath"
 // )
 
 // func main() {
-// 	path := filepath.Join(os.TempDir(), "unixdomainsocket-server")
+// 	clientPath := filepath.Join(os.TempDir(), "unixdomainsocket-server")
 // 	// エラーチェックは削除（存在しなかったらしかなったで問題ないので不要）
-// 	os.Remove(path)
-// 	fmt.Println("Server is running at " + path)
-
-// 	conn, err := net.ListenPacket("unixgram", path)
+// 	os.Remove(clientPath)
+// 	conn, err := net.ListenPacket("unixgram", clientPath)
 // 	if err != nil {
 // 		panic(err)
 // 	}
 // 	defer conn.Close()
 
-// 	buffer := make([]byte, 1500)
-// 	for {
-// 		length, remoteAddress, err := conn.ReadFrom(buffer)
-// 		if err != nil {
-// 			panic(err)
-// 		}
-// 		fmt.Printf("Revieved from %v: %v\n", remoteAddress, string(buffer[:length]))
-// 		_, err = conn.WriteTo([]byte("Hello from Server"), remoteAddress)
-// 		if err != nil {
-// 			panic(err)
-// 		}
+// 	// 送信先のアドレス
+// 	unixServerAddr, err := net.ResolveUnixAddr("unixgram", filepath.Join(os.TempDir(), "unixdomainsocket-server"))
+// 	var serverAddr net.Addr = unixServerAddr
+// 	if err != nil {
+// 		panic(err)
 // 	}
-// }
+// 	defer conn.Close()
+// 	log.Println("Sending to server")
 
+// 	_, err = conn.WriteTo([]byte("Hello from Server"), serverAddr)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	log.Println("Receiving to server")
+
+// 	buffer := make([]byte, 1500)
+// 	length, _, err := conn.ReadFrom(buffer)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	log.Printf("Revieved: %s\n", string(buffer[:length]))
+// }
 // =======================================================
 // ## 8.2.3 Unix ドメインソケット版の HTTP クライアントを作る
 // import (
