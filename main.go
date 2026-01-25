@@ -1,7 +1,43 @@
 package main
 
+func main() {
+
+}
+
 // =======================================================
 // ## 9.2.4 ファイルの削除/移動/リネーム
+// import (
+// 	"io"
+// 	"os"
+// )
+
+// // コピー
+// func main() {
+// 	oldFile, err := os.Create("old_name.txt")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	oldFile.WriteString("old name")
+// 	oldFile, err = os.Open("old_name.txt")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+
+// 	os.Mkdir("other_device", 0755)
+// 	newFile, err := os.Create("./other_device/new_file.txt")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	defer newFile.Close()
+
+// 	_, err = io.Copy(newFile, oldFile)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	os.Remove("old_name.txt")
+// }
+
+// =======================================================
 // import "os"
 
 // // リネーム
