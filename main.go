@@ -1,11 +1,32 @@
 package main
 
-func main() {
-
-}
-
 // =======================================================
 // ## 9.2.4 ファイルの削除/移動/リネーム
+// import "os"
+
+// // リネーム
+// func rename() {
+// 	// リネーム
+// 	os.Rename("old_name.txt", "new_name.txt")
+// 	// 移動
+// 	os.Rename("olddir/file.txt", "newdir/file.txt")
+// }
+
+// func main() {
+// 	_, err := os.Create("old_name.txt")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	os.Mkdir("newdir", 0755)
+// 	_, err = os.Create("newdir/file.txt")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+
+// 	rename()
+// }
+
+// =======================================================
 // import (
 // 	"math/rand"
 // 	"os"
