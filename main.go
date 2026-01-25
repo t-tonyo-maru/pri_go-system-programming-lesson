@@ -5,6 +5,87 @@ func main() {
 }
 
 // =======================================================
+// ## 9.2.10 リンク
+// import (
+// 	"fmt"
+// 	"os"
+// )
+
+// func main() {
+// 	// ハードリンク
+// 	os.Link("oldfile.txt", "newfile.txt")
+// 	// シンボリックリンク
+// 	os.Symlink("oldfile.txt", "newfile-symlink.txt")
+// 	// シンボリックリンクのリンク先を取得
+// 	link, err := os.Readlink("newfile-symlink.txt")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	fmt.Println(link)
+// }
+
+// =======================================================
+// ## 9.2.9 ファイルの属性の設定
+// import (
+// 	"os"
+// 	"time"
+// )
+
+// func main() {
+// 	// ファイルのモードを変更
+// 	os.Chmod("setting.txt", 0644)
+// 	// ファイルのオーナーを変更
+// 	os.Chown("setting.txt", os.Getuid(), os.Getgid())
+// 	// ファイルの最終アクセス日時と変更日時を更新
+// 	os.Chtimes("setting.txt", time.Now(), time.Now())
+// }
+
+// =======================================================
+// ## 9.2.8 ファイルの同一性チェック
+// import (
+// 	"fmt"
+// 	"os"
+// )
+
+// func main() {
+// 	fileInfo1, err := os.Stat("README.md")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	fileInfo2, err := os.Stat("README.md")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+
+// 	if os.SameFile(fileInfo1, fileInfo2) {
+// 		fmt.Println("同じファイルです。")
+// 	} else {
+// 		fmt.Println("異なるファイルです。")
+// 	}
+// }
+
+// =======================================================
+// ## 9.2.6 ファイルの存在チェック
+// import (
+// 	"fmt"
+// 	"os"
+// )
+
+// func main() {
+// 	info, err := os.Stat("README.md")
+// 	if err == os.ErrNotExist {
+// 		// ファイルが存在しない
+// 		fmt.Println("ファイルが存在しません")
+// 	} else if err != nil {
+// 		// それ以外のエラー
+// 		fmt.Println("不明なエラーが発生しました")
+// 	} else {
+// 		// 正常ケース
+// 		fmt.Println("ファイルは存在します。", info)
+// 	}
+// }
+
+// =======================================================
 // ## 9.2.5 ファイルの属性の取得
 // import (
 // 	"fmt"
