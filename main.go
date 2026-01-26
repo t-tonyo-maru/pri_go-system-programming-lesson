@@ -5,6 +5,26 @@ func main() {
 }
 
 // =======================================================
+// ## 9.5.4 パスのクリーン化
+// import (
+// 	"fmt"
+// 	"path/filepath"
+// )
+
+// func main() {
+// 	// パスをそのままクリーンにする
+// 	fmt.Println(filepath.Clean("./path/filepath/../path.go"))
+
+// 	// パスを絶対パスに整形
+// 	abspath, _ := filepath.Abs("path/filepath/path_unix.go")
+// 	fmt.Println(abspath)
+
+// 	// パスを相対パスに整形
+// 	relpath, _ := filepath.Rel("/usr/local/go/src", "/usr/local/go/src/path/filepath/path.go")
+// 	fmt.Println(relpath)
+// }
+
+// =======================================================
 // ## 9.5.3 複数のパスからなる文字列を分解する
 // import (
 // 	"fmt"
