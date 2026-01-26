@@ -5,8 +5,54 @@ func main() {
 }
 
 // =======================================================
+// ## 9.5.2 パスを分割する
+// import (
+// 	"fmt"
+// 	"os"
+// 	"path/filepath"
+// )
+
+// func main() {
+// 	dir, name := filepath.Split(os.Getenv("GOPATH"))
+// 	fmt.Printf("Dir: %s, Name: %s\n", dir, name)
+// }
+
+// =======================================================
+// ## 9.5.1 ディレクトリのパスとファイル名を連結する
+// import (
+// 	"fmt"
+// 	"os"
+// 	"path/filepath"
+// )
+
+// func main() {
+// 	fmt.Printf("Temp File Path: %s\n", filepath.Join(os.TempDir(), "temp.txt"))
+// }
+
+// =======================================================
 // ## 9.2.11 ディレクトリ情報の取得
-// TODO!!!
+// import (
+// 	"fmt"
+// 	"os"
+// )
+
+// func main() {
+// 	dir, err := os.Open("/")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	fileInfos, err := dir.Readdir(-1)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	for _, fileInfo := range fileInfos {
+// 		if fileInfo.IsDir() {
+// 			fmt.Println("[Dir] %s\n", fileInfo.Name())
+// 		} else {
+// 			fmt.Println("[File] %s\n", fileInfo.Name())
+// 		}
+// 	}
+// }
 
 // =======================================================
 // ## 9.2.10 リンク
