@@ -2,12 +2,13 @@ module learn-system-with-go
 
 go 1.24.5
 
-require (
-	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510
-	github.com/peterh/liner v1.2.2
-)
+require github.com/shirou/gopsutil v3.21.11+incompatible
 
 require (
-	github.com/mattn/go-runewidth v0.0.3 // indirect
-	golang.org/x/sys v0.0.0-20211117180635-dee7805ff2e1 // indirect
+	github.com/go-ole/go-ole v1.2.6 // indirect
+	github.com/stretchr/testify v1.11.1 // indirect
+	github.com/tklauser/go-sysconf v0.3.16 // indirect
+	github.com/tklauser/numcpus v0.11.0 // indirect
+	github.com/yusufpapurcu/wmi v1.2.4 // indirect
+	golang.org/x/sys v0.38.0 // indirect
 )

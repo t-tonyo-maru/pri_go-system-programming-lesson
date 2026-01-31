@@ -1,6 +1,58 @@
 package main
 
 // =======================================================
+// ## 12.5.2 リアルタイムな入出力
+
+// =======================================================
+// ## 12.5.1 exec.Cmd によるプロセスの起動
+// import (
+// 	"fmt"
+// 	"os"
+// 	"os/exec"
+// )
+
+// func main() {
+// 	if len(os.Args) == 1 {
+// 		return
+// 	}
+
+// 	cmd := exec.Command(os.Args[1], os.Args[2:]...)
+// 	err := cmd.Run()
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	state := cmd.ProcessState
+// 	fmt.Printf("%s\n", state.String())
+// 	fmt.Printf("  Pid: %d\n", state.Pid())
+// 	fmt.Printf("  System: %v\n", state.SystemTime())
+// 	fmt.Printf("  User: %v\n", state.UserTime())
+// }
+
+// =======================================================
+// ## 12.3 自分以外のプロセスの名前や資源情報の取得
+// import (
+// 	"fmt"
+// 	"os"
+
+// 	"github.com/shirou/gopsutil/process"
+// )
+
+// func main() {
+// 	p, _ := process.NewProcess(int32(os.Getppid()))
+// 	name, _ := p.Name()
+// 	cmd, _ := p.Cmdline()
+// 	fmt.Printf("parent pid: %d name: '%s' cmd: '%s'\n", p.Pid, name, cmd)
+// }
+
+// =======================================================
+// ## 12.2.2 終了コードと$・ERRORLEVEL
+// import "os"
+
+// func main() {
+// 	os.Exit(1)
+// }
+
+// =======================================================
 // ## 12.1.6 作業フォルダ
 // import (
 // 	"fmt"
