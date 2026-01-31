@@ -1,11 +1,30 @@
 package main
 
-func main() {
-
-}
+// =======================================================
+// ## 12.6.2 外部プロセスに対して自分が擬似端末だと詐称する
 
 // =======================================================
-// ## 12.5.3 os.Process によるプロセスの起動・操作
+// ## 12.6.1 プロセスの出力に色づけをする
+// import (
+// 	"fmt"
+// 	"io"
+// 	"os"
+
+// 	"github.com/mattn/go-colorable"
+// 	"github.com/mattn/go-isatty"
+// )
+
+// var data = "\033[34m\033[47m\033[4mB\033[31me\n\033[24m\033[30mOS\033[49m\033[m\n"
+
+// func main() {
+// 	var stdOut io.Writer
+// 	if isatty.IsTerminal(os.Stdout.Fd()) {
+// 		stdOut = colorable.NewColorableStdout()
+// 	} else {
+// 		stdOut = colorable.NewNonColorable(os.Stdout)
+// 	}
+// 	fmt.Fprintln(stdOut, data)
+// }
 
 // =======================================================
 // ## 12.5.2 リアルタイムな入出力
