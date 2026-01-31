@@ -1,7 +1,46 @@
 package main
 
+func main() {
+
+}
+
+// =======================================================
+// ## 12.5.3 os.Process によるプロセスの起動・操作
+
 // =======================================================
 // ## 12.5.2 リアルタイムな入出力
+// import (
+// 	"bufio"
+// 	"fmt"
+// 	"os/exec"
+// )
+
+// func main() {
+// 	count := exec.Command("./count")
+// 	stdout, _ := count.StdoutPipe()
+// 	go func() {
+// 		scanner := bufio.NewScanner(stdout)
+// 		for scanner.Scan() {
+// 			fmt.Printf("(stdout) %s\n", scanner.Text())
+// 		}
+// 	}()
+// 	err := count.Run()
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// }
+// =======================================================
+// import (
+// 	"fmt"
+// 	"time"
+// )
+
+// func main() {
+// 	for i := 0; i < 10; i++ {
+// 		fmt.Println(i)
+// 		time.Sleep(time.Second)
+// 	}
+// }
 
 // =======================================================
 // ## 12.5.1 exec.Cmd によるプロセスの起動
