@@ -2,7 +2,10 @@ module learn-system-with-go
 
 go 1.24.5
 
-require github.com/peterh/liner v1.2.2
+require (
+	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510
+	github.com/peterh/liner v1.2.2
+)
 
 require (
 	github.com/mattn/go-runewidth v0.0.3 // indirect

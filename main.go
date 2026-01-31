@@ -4,20 +4,54 @@ import (
 	"errors"
 	"io"
 	"log"
+	"strings"
 
+	"github.com/google/shlex"
 	"github.com/peterh/liner"
 )
+
+func parseCmd(cmdStr string) (cmd string, args []string, err error) {
+	l := shlex.NewLexer(strings.NewReader(cmdStr))
+
+	cmd, err = l.Next()
+	if err != nil {
+		return
+	}
+
+	for {
+		token, nextErr := l.Next()
+		if errors.Is(nextErr, io.EOF) {
+			break
+		}
+		if nextErr != nil {
+			err = nextErr
+			return
+		}
+		args = append(args, token)
+	}
+	return
+}
 
 func main() {
 	line := liner.NewLiner()
 	line.SetCtrlCAborts(true)
 	for {
-		if cmd, err := line.Prompt(" "); err != nil {
-			if cmd == "" {
+		cmdStr, err := line.Prompt(" ")
+		if err == nil {
+			if cmdStr == "" {
 				continue
 			}
 			// ここでコマンドを処理する
-		} else if errors.Is(err, io.EOF) {
+			cmd, args, parseErr := parseCmd(cmdStr)
+			if parseErr != nil {
+				log.Print("Error parsing command:", parseErr)
+				continue
+			}
+			log.Printf("cmd=%s args=%v", cmd, args)
+			continue
+		}
+
+		if errors.Is(err, io.EOF) {
 			break
 		} else if err == liner.ErrPromptAborted {
 			log.Print("Aborted")
