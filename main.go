@@ -1,7 +1,58 @@
 package main
 
 // =======================================================
-// ## 14.7.3 sync.Once
+// ## 14.7.5 sync.Map
+// import (
+// 	"fmt"
+// 	"sync"
+// )
+
+// func main() {
+// 	// 初期化
+// 	smap := &sync.Map{}
+
+// 	// なんでも入れられる
+// 	smap.Store("hello", "world")
+// 	smap.Store(1, 2)
+
+// 	// 削除
+// 	smap.Delete("test")
+
+// 	// 取り出し方法
+// 	value, ok := smap.Load("hello")
+// 	fmt.Printf("key=%v value=%v exists=%v\n", "hello", value, ok)
+// }
+
+// =======================================================
+// ## 14.7.4 sync.Once
+// import (
+// 	"fmt"
+// 	"sync"
+// 	"time"
+// )
+
+// func main() {
+// 	var mutex sync.Mutex
+// 	cond := sync.NewCond(&mutex)
+
+// 	for _, name := range []string{"A", "B", "C"} {
+// 		go func(name string) {
+// 			// ロックしてから Wait メソッドを呼ぶ
+// 			mutex.Lock()
+// 			defer mutex.Unlock()
+// 			// BroadCast() が呼ばれるまで待機
+// 			cond.Wait()
+// 			// 呼ばれた
+// 			fmt.Println(name)
+// 		}(name)
+// 	}
+
+// 	fmt.Println("よーい")
+// 	time.Sleep(time.Second)
+// 	fmt.Println("どん！")
+// 	cond.Broadcast()
+// 	time.Sleep(time.Second)
+// }
 
 // =======================================================
 // ## 14.7.3 sync.Once
