@@ -1,8 +1,33 @@
 package main
 
-func main() {
+// =======================================================
+// ## 15.2.7 決まった数の goroutine でタスクを消化: ワーカープール
 
-}
+// =======================================================
+// ## 15.2.6 並列 for ループ
+// import (
+// 	"fmt"
+// 	"sync"
+// )
+
+// func main() {
+// 	tasks := []string{
+// 		"cmake ...",
+// 		"cmake, . --build Release",
+// 		"cpack",
+// 	}
+// 	var wg sync.WaitGroup
+// 	wg.Add(len(tasks))
+// 	for _, task := range tasks {
+// 		go func(task string) {
+// 			// ジョブを実行
+// 			// このサンプルでは出力だけしている
+// 			fmt.Println(task)
+// 			wg.Done()
+// 		}(task)
+// 	}
+// 	wg.Wait()
+// }
 
 // =======================================================
 // ## 15.2.4 開始した順で処理する: チャネルのチャネル
