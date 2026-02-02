@@ -1,7 +1,47 @@
 package main
 
 // =======================================================
+// ## 16.3.4 sync.Pool による、アロケート回数の削減
+// import (
+// 	"fmt"
+// 	"sync"
+// )
+
+// func main() {
+// 	// Pool を作成。New で新規作成時のコードを実装
+// 	var count int
+// 	pool := sync.Pool{
+// 		New: func() interface{} {
+// 			count++
+// 			return fmt.Sprintf("created: %d", count)
+// 		},
+// 	}
+
+// 	// 追加した要素から受け取れる
+// 	pool.Put("manualy added: 1")
+// 	pool.Put("manualy added: 2")
+// 	fmt.Println(pool.Get())
+// 	fmt.Println(pool.Get())
+// 	fmt.Println(pool.Get())
+// }
+
+// =======================================================
 // ## 16.3.2 スライスのメモリ確保とパフォーマンス改善のヒント
+// import "fmt"
+
+// func main() {
+// 	// 長さ 1, 確保された要素 2 のスライスを作成
+// 	s := make([]int, 1, 2)
+// 	fmt.Println(&s[0], len(s), cap(s))
+
+// 	// 1 要素追加(確保された範囲内)
+// 	s = append(s, 1)
+// 	fmt.Println(&s[0], len(s), cap(s))
+
+// 	// さらに要素を追加(新しく配列を確保され直す)
+// 	s = append(s, 2)
+// 	fmt.Println(&s[0], len(s), cap(s))
+// }
 
 // =======================================================
 // ## 16.3.1 スライスの作成方法
