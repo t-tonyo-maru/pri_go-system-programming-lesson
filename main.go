@@ -1,7 +1,32 @@
 package main
 
 // =======================================================
+// ## 16.4.1 メモリアリーナ
+
+// =======================================================
 // ## 16.3.4 sync.Pool による、アロケート回数の削減
+// import (
+// 	"fmt"
+// 	"runtime"
+// 	"sync"
+// )
+
+// func main() {
+// 	var count int
+// 	pool := sync.Pool{
+// 		New: func() interface{} {
+// 			count++
+// 			return fmt.Sprintf("created: %d", count)
+// 		},
+// 	}
+
+// 	// GC を呼ぶと追加された要素が消える
+// 	pool.Put("removed 1")
+// 	pool.Put("removed 2")
+// 	runtime.GC()
+// 	fmt.Println(pool.Get())
+// }
+// =======================================================
 // import (
 // 	"fmt"
 // 	"sync"
